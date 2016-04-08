@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>怎么编写Linux守护程序 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="来源： Linux Daemon Writing HOWTO
+Linux Daemon Writing HOWTO
+This document shows how to write a daemon in Linux using GCC. Knowledge of Linux and a familiarity with C are necessary to use this document.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="怎么编写Linux守护程序">
+<meta property="og:url" content="http://blog.gsymy.com/2015/08/18/linux-daemon-writing-howto/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="来源： Linux Daemon Writing HOWTO
+Linux Daemon Writing HOWTO
+This document shows how to write a daemon in Linux using GCC. Knowledge of Linux and a familiarity with C are necessary to use this document.">
+<meta property="og:updated_time" content="2016-04-07T15:50:44.089Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="怎么编写Linux守护程序">
+<meta name="twitter:description" content="来源： Linux Daemon Writing HOWTO
+Linux Daemon Writing HOWTO
+This document shows how to write a daemon in Linux using GCC. Knowledge of Linux and a familiarity with C are necessary to use this document.">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.gsymy.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-linux-daemon-writing-howto" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/18/linux-daemon-writing-howto/" class="article-date">
+  <time datetime="2015-08-18T02:26:13.000Z" itemprop="datePublished">2015-08-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux开发/">linux开发</a>►<a class="article-category-link" href="/categories/linux开发/程序设计/">程序设计</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      怎么编写Linux守护程序
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>来源： <em><a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#" target="_blank" rel="external">Linux Daemon Writing HOWTO</a></em></p>
+<h1 id="Linux-Daemon-Writing-HOWTO"><a href="#Linux-Daemon-Writing-HOWTO" class="headerlink" title="Linux Daemon Writing HOWTO"></a>Linux Daemon Writing HOWTO</h1><hr>
+<h2 id="This-document-shows-how-to-write-a-daemon-in-Linux-using-GCC-Knowledge-of-Linux-and-a-familiarity-with-C-are-necessary-to-use-this-document-This-HOWTO-is-Copyright-by-Devin-Watson-under-the-terms-of-the-BSD-License"><a href="#This-document-shows-how-to-write-a-daemon-in-Linux-using-GCC-Knowledge-of-Linux-and-a-familiarity-with-C-are-necessary-to-use-this-document-This-HOWTO-is-Copyright-by-Devin-Watson-under-the-terms-of-the-BSD-License" class="headerlink" title="This document shows how to write a daemon in Linux using GCC. Knowledge of Linux and a familiarity with C are necessary to use this document. This HOWTO is Copyright by Devin Watson, under the terms of the BSD License."></a><em>This document shows how to write a daemon in Linux using GCC. Knowledge of Linux and a familiarity with C are necessary to use this document. This HOWTO is Copyright by Devin Watson, under the terms of the BSD License.</em></h2><a id="more"></a>
+<hr>
+<h2 id="1-Introduction-What-is-a-Daemon"><a href="#1-Introduction-What-is-a-Daemon" class="headerlink" title="1. Introduction: What is a Daemon?"></a><a name="toc1"></a>1. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#s1" target="_blank" rel="external">Introduction: What is a Daemon?</a></h2><h2 id="2-Getting-Started"><a href="#2-Getting-Started" class="headerlink" title="2. Getting Started"></a><a name="toc2"></a>2. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#s2" target="_blank" rel="external">Getting Started</a></h2><h2 id="3-Planning-Your-Daemon"><a href="#3-Planning-Your-Daemon" class="headerlink" title="3. Planning Your Daemon"></a><a name="toc3"></a>3. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#s3" target="_blank" rel="external">Planning Your Daemon</a></h2><ul>
+<li><a name="toc3.1"></a>3.1 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#ss3.1" target="_blank" rel="external">What Is It Going To Do?</a></li>
+<li><a name="toc3.2"></a>3.2 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#ss3.2" target="_blank" rel="external">How Much Interaction?</a></li>
+</ul>
+<h2 id="4-Basic-Daemon-Structure"><a href="#4-Basic-Daemon-Structure" class="headerlink" title="4. Basic Daemon Structure"></a><a name="toc4"></a>4. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#s4" target="_blank" rel="external">Basic Daemon Structure</a></h2><ul>
+<li><a name="toc4.1"></a>4.1 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#ss4.1" target="_blank" rel="external">Forking The Parent Process</a></li>
+<li><a name="toc4.2"></a>4.2 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#ss4.2" target="_blank" rel="external">Changing The File Mode Mask (Umask)</a></li>
+<li><a name="toc4.3"></a>4.3 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#ss4.3" target="_blank" rel="external">Opening Logs For Writing</a></li>
+<li><a name="toc4.4"></a>4.4 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#ss4.4" target="_blank" rel="external">Creating a Unique Session ID (SID)</a></li>
+<li><a name="toc4.5"></a>4.5 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#ss4.5" target="_blank" rel="external">Changing The Working Directory</a></li>
+<li><a name="toc4.6"></a>4.6 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#ss4.6" target="_blank" rel="external">Closing Standard File Descriptors</a></li>
+</ul>
+<h2 id="5-Writing-the-Daemon-Code"><a href="#5-Writing-the-Daemon-Code" class="headerlink" title="5. Writing the Daemon Code"></a><a name="toc5"></a>5. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#s5" target="_blank" rel="external">Writing the Daemon Code</a></h2><ul>
+<li><a name="toc5.1"></a>5.1 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#ss5.1" target="_blank" rel="external">Initialization</a></li>
+<li><a name="toc5.2"></a>5.2 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#ss5.2" target="_blank" rel="external">The Big Loop</a></li>
+</ul>
+<h2 id="6-Putting-It-All-Together"><a href="#6-Putting-It-All-Together" class="headerlink" title="6. Putting It All Together"></a><a name="toc6"></a>6. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#s6" target="_blank" rel="external">Putting It All Together</a></h2><ul>
+<li><a name="toc6.1"></a>6.1 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#ss6.1" target="_blank" rel="external">Complete Sample</a></li>
+</ul>
+<hr>
+<h2 id="1-Introduction-What-is-a-Daemon-1"><a href="#1-Introduction-What-is-a-Daemon-1" class="headerlink" title="1. Introduction: What is a Daemon?"></a><a name="s1"></a>1. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc1" target="_blank" rel="external">Introduction: What is a Daemon?</a></h2><p>A daemon (or service) is a background process that is designed to run autonomously,with little or not user intervention. The Apache web server http daemon (httpd) is one such example of a daemon. It waits in the background listening on specific ports, and serves up pages or processes scripts, based on the type of request.</p>
+<p>Creating a daemon in Linux uses a specific set of rules in a given order. Knowing how they work will help you understand how daemons operate in userland Linux, but can operate with calls to the kernel also. In fact, a few daemons interface with kernel modules that work with hardware devices, such as external controller boards, printers,and PDAs. They are one of the fundamental building blocks in Linux that give it incredible flexibility and power.</p>
+<p>Throughout this HOWTO, a very simple daemon will be built in C. As we go along, more code will be added, showing the proper order of execution required to get a daemon up and running.</p>
+<h2 id="2-Getting-Started-1"><a href="#2-Getting-Started-1" class="headerlink" title="2. Getting Started"></a><a name="s2"></a>2. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc2" target="_blank" rel="external">Getting Started</a></h2><p>First off, you’ll need the following packages installed on your Linux machine to develop daemons, specifically:</p>
+<ul>
+<li><code>GCC 3.2.2 or higher</code></li>
+<li><code>Linux Development headers and libraries</code><br>If your system does not already have these installed (not likely, but check anyway), you’ll need them to develop the examples in this HOWTO. To find out what version of GCC you have installed, use:<blockquote>
+<pre>        gcc --version
+
+</pre>
+
+</blockquote>
+</li>
+</ul>
+<h2 id="3-Planning-Your-Daemon-1"><a href="#3-Planning-Your-Daemon-1" class="headerlink" title="3. Planning Your Daemon"></a><a name="s3"></a>3. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc3" target="_blank" rel="external">Planning Your Daemon</a></h2><h2 id="3-1-What-Is-It-Going-To-Do"><a href="#3-1-What-Is-It-Going-To-Do" class="headerlink" title="3.1 What Is It Going To Do?"></a><a name="ss3.1"></a>3.1 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc3.1" target="_blank" rel="external">What Is It Going To Do?</a></h2><p>A daemon should do one thing, and do it well. That one thing may be as complex as managing hundreds of mailboxes on multiple domains, or as simple as writing a report and calling sendmail to mail it out to an admin.</p>
+<p>In any case, you should have a good plan going in what the daemon should do. If it is going to interoperate with some other daemons that you may or may not be writing, this is something else to consider as well.</p>
+<h2 id="3-2-How-Much-Interaction"><a href="#3-2-How-Much-Interaction" class="headerlink" title="3.2 How Much Interaction?"></a><a name="ss3.2"></a>3.2 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc3.2" target="_blank" rel="external">How Much Interaction?</a></h2><p>Daemons should never have direct communication with a user through a terminal. In fact, a daemon shouldn’t communicate directly with a user at all. All communication should pass through some sort of interface (which you may or may not have to write), which can be as complex as a GTK+ GUI, or as simple as a signal set.</p>
+<h2 id="4-Basic-Daemon-Structure-1"><a href="#4-Basic-Daemon-Structure-1" class="headerlink" title="4. Basic Daemon Structure"></a><a name="s4"></a>4. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc4" target="_blank" rel="external">Basic Daemon Structure</a></h2><p>When a daemon starts up, it has to do some low-level housework to get itself ready for its real job. This involves a few steps:</p>
+<ul>
+<li>Fork off the parent process</li>
+<li>Change file mode mask (umask)</li>
+<li>Open any logs for writing</li>
+<li>Create a unique Session ID (SID)</li>
+<li>Change the current working directory to a safe place</li>
+<li>Close standard file descriptors</li>
+<li>Enter actual daemon code</li>
+</ul>
+<h2 id="4-1-Forking-The-Parent-Process"><a href="#4-1-Forking-The-Parent-Process" class="headerlink" title="4.1 Forking The Parent Process"></a><a name="ss4.1"></a>4.1 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc4.1" target="_blank" rel="external">Forking The Parent Process</a></h2><p>A daemon is started either by the system itself or a user in a terminal or script. When it does start, the process is just like any other executable on the system. To make it truly autonomous, a <em>child process</em> must be created where the actual code is executed. This is known as forking, and it uses the <em>fork()</em> function:</p>
+<blockquote>
+<p><pre>        pid_t pid;</pre></p>
+<pre><code>/* Fork off the parent process */       
+
+pid = fork();
+
+if (pid &amp;lt; 0) {
+
+        exit(EXIT_FAILURE);
+
+}
+
+/* If we got a good PID, then
+
+   we can exit the parent process. */
+
+if (pid &amp;gt; 0) {
+
+        exit(EXIT_SUCCESS);
+
+}
+</code></pre><p><br>Notice the error check right after the call to <em>fork()</em>. When writing a daemon, you will have to code as defensively as possible. In fact, a good percentage of the total code in a daemon consists of nothing but error checking.</p>
+</blockquote>
+<p>The <em>fork()</em> function returns either the process id (PID) of the child process (not equal to zero), or -1 on failure. If the process cannot fork a child, then the daemon should terminate right here.</p>
+<p>If the PID returned from <em>fork()</em> did succeed, the parent process must exit gracefully. This may seem strange to anyone who hasn’t seen it, but by forking, the child process continues the execution from here on out in the code.</p>
+<h2 id="4-2-Changing-The-File-Mode-Mask-Umask"><a href="#4-2-Changing-The-File-Mode-Mask-Umask" class="headerlink" title="4.2 Changing The File Mode Mask (Umask)"></a><a name="ss4.2"></a>4.2 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc4.2" target="_blank" rel="external">Changing The File Mode Mask (Umask)</a></h2><p>In order to write to any files (including logs) created by the daemon, the file mode mask (umask) must be changed to ensure that they can be written to or read from properly. This is similar to running umask from the command line, but we do it programmatically here. We can use the <em>umask()</em> function to accomplish this:</p>
+<blockquote>
+<p><pre>        pid_t pid, sid;</pre></p>
+<pre><code>/* Fork off the parent process */
+
+pid = fork();
+
+if (pid &amp;lt; 0) {
+
+        /* Log failure (use syslog if possible) */
+
+        exit(EXIT_FAILURE);
+
+}
+
+/* If we got a good PID, then
+
+   we can exit the parent process. */
+
+if (pid &amp;gt; 0) {
+
+        exit(EXIT_SUCCESS);
+
+}
+
+
+/* Change the file mode mask */
+
+umask(0);
+</code></pre><p><br>By setting the umask to 0, we will have full access to the files generated by the daemon. Even if you aren’t planning on using any files, it is a good idea to set the umask here anyway, just in case you will be accessing files on the filesystem.</p>
+</blockquote>
+<h2 id="4-3-Opening-Logs-For-Writing"><a href="#4-3-Opening-Logs-For-Writing" class="headerlink" title="4.3 Opening Logs For Writing"></a><a name="ss4.3"></a>4.3 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc4.3" target="_blank" rel="external">Opening Logs For Writing</a></h2><p>This part is optional, but it is recommended that you open a log file somewhere in the system for writing. This may be the only place you can look for debug information about your daemon.</p>
+<h2 id="4-4-Creating-a-Unique-Session-ID-SID"><a href="#4-4-Creating-a-Unique-Session-ID-SID" class="headerlink" title="4.4 Creating a Unique Session ID (SID)"></a><a name="ss4.4"></a>4.4 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc4.4" target="_blank" rel="external">Creating a Unique Session ID (SID)</a></h2><p>From here, the child process must get a unique SID from the kernel in order to operate. Otherwise, the child process becomes an orphan in the system. The pid_t type, declared in the previous section, is also used to create a new SID for the child process:</p>
+<blockquote>
+<p><pre>        pid_t pid, sid;</pre></p>
+<pre><code>/* Fork off the parent process */
+
+pid = fork();
+
+if (pid &amp;lt; 0) {
+
+        exit(EXIT_FAILURE);
+
+}
+
+/* If we got a good PID, then
+
+   we can exit the parent process. */
+
+if (pid &amp;gt; 0) {
+
+        exit(EXIT_SUCCESS);
+
+}
+
+
+/* Change the file mode mask */
+
+umask(0);
+
+
+/* Open any logs here */
+
+
+/* Create a new SID for the child process */
+
+sid = setsid();
+
+if (sid &amp;lt; 0) {
+
+        /* Log any failure */
+
+        exit(EXIT_FAILURE);
+
+}
+</code></pre><p><br>Again, the <em>setsid()</em> function has the same return type as <em>fork()</em>. We can apply the same error-checking routine here to see if the function created the SID for the child process.</p>
+</blockquote>
+<h2 id="4-5-Changing-The-Working-Directory"><a href="#4-5-Changing-The-Working-Directory" class="headerlink" title="4.5 Changing The Working Directory"></a><a name="ss4.5"></a>4.5 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc4.5" target="_blank" rel="external">Changing The Working Directory</a></h2><p>The current working directory should be changed to some place that is guaranteed to always be there. Since many Linux distributions do not completely follow the Linux Filesystem Hierarchy standard, the only directory that is guaranteed to be there is the root (/). We can do this using the <em>chdir()</em> function:</p>
+<blockquote>
+<p><pre>        pid_t pid, sid;</pre></p>
+<pre><code>/* Fork off the parent process */
+
+pid = fork();
+
+if (pid &amp;lt; 0) {
+
+        exit(EXIT_FAILURE);
+
+}
+
+/* If we got a good PID, then
+
+   we can exit the parent process. */
+
+if (pid &amp;gt; 0) {
+
+        exit(EXIT_SUCCESS);
+
+}
+
+
+/* Change the file mode mask */
+
+umask(0);       
+
+
+/* Open any logs here */        
+
+
+/* Create a new SID for the child process */
+
+sid = setsid();
+
+if (sid &amp;lt; 0) {
+
+        /* Log any failure here */
+
+        exit(EXIT_FAILURE);
+
+}
+
+
+/* Change the current working directory */
+
+if ((chdir(&quot;/&quot;)) &amp;lt; 0) {
+
+        /* Log any failure here */
+
+        exit(EXIT_FAILURE);
+
+}
+</code></pre><p><br>Once again, you can see the defensive coding taking place. The <em>chdir()</em> function returns -1 on failure, so be sure to check for that after changing to the root directory within the daemon.</p>
+</blockquote>
+<h2 id="4-6-Closing-Standard-File-Descriptors"><a href="#4-6-Closing-Standard-File-Descriptors" class="headerlink" title="4.6 Closing Standard File Descriptors"></a><a name="ss4.6"></a>4.6 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc4.6" target="_blank" rel="external">Closing Standard File Descriptors</a></h2><p>One of the last steps in setting up a daemon is closing out the standard file descriptors (STDIN, STDOUT, STDERR). Since a daemon cannot use the terminal, these file descriptors are redundant and a potential security hazard.</p>
+<p>The <em>close()</em> function can handle this for us:</p>
+<blockquote>
+<p><pre>        pid_t pid, sid;</pre></p>
+<pre><code>/* Fork off the parent process */
+
+pid = fork();
+
+if (pid &amp;lt; 0) {
+
+        exit(EXIT_FAILURE);
+
+}
+
+/* If we got a good PID, then
+
+   we can exit the parent process. */
+
+if (pid &amp;gt; 0) {
+
+        exit(EXIT_SUCCESS);
+
+}
+
+
+/* Change the file mode mask */
+
+umask(0);       
+
+
+/* Open any logs here */
+
+
+/* Create a new SID for the child process */
+
+sid = setsid();
+
+if (sid &amp;lt; 0) {
+
+        /* Log any failure here */
+
+        exit(EXIT_FAILURE);
+
+}
+
+
+/* Change the current working directory */
+
+if ((chdir(&quot;/&quot;)) &amp;lt; 0) {
+
+        /* Log any failure here */
+
+        exit(EXIT_FAILURE);
+
+}
+
+
+/* Close out the standard file descriptors */
+
+close(STDIN_FILENO);
+
+close(STDOUT_FILENO);
+
+close(STDERR_FILENO);
+</code></pre><p><br>It’s a good idea to stick with the constants defined for the file descriptors, for the greatest portability between system versions.</p>
+</blockquote>
+<h2 id="5-Writing-the-Daemon-Code-1"><a href="#5-Writing-the-Daemon-Code-1" class="headerlink" title="5. Writing the Daemon Code"></a><a name="s5"></a>5. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc5" target="_blank" rel="external">Writing the Daemon Code</a></h2><h2 id="5-1-Initialization"><a href="#5-1-Initialization" class="headerlink" title="5.1 Initialization"></a><a name="ss5.1"></a>5.1 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc5.1" target="_blank" rel="external">Initialization</a></h2><p>At this point, you have basically told Linux that you’re a daemon, so now it’s time to write the actual daemon code. Initialization is the first step here. Since there can be a multitude of different functions that can be called here to set up your daemon’s task, I won’t go too deep into here.</p>
+<p>The big point here is that, when initializing anything in a daemon, the same defensive coding guidelines apply here. Be as verbose as possible when writing either to the syslog or your own logs. Debugging a daemon can be quite difficult when there isn’t enough information available as to the status of the daemon.</p>
+<h2 id="5-2-The-Big-Loop"><a href="#5-2-The-Big-Loop" class="headerlink" title="5.2 The Big Loop"></a><a name="ss5.2"></a>5.2 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc5.2" target="_blank" rel="external">The Big Loop</a></h2><p>A daemon’s main code is typically inside of an infinite loop. Technically, it isn’t an infinite loop, but it is structured as one:</p>
+<blockquote>
+<p><pre>        pid_t pid, sid;</pre></p>
+<pre><code>/* Fork off the parent process */
+
+pid = fork();
+
+if (pid &amp;lt; 0) {
+
+        exit(EXIT_FAILURE);
+
+}
+
+/* If we got a good PID, then
+
+   we can exit the parent process. */
+
+if (pid &amp;gt; 0) {
+
+        exit(EXIT_SUCCESS);
+
+}
+
+
+/* Change the file mode mask */
+
+umask(0);       
+
+
+/* Open any logs here */
+
+
+/* Create a new SID for the child process */
+
+sid = setsid();
+
+if (sid &amp;lt; 0) {
+
+        /* Log any failures here */
+
+        exit(EXIT_FAILURE);
+
+}
+
+
+/* Change the current working directory */
+
+if ((chdir(&quot;/&quot;)) &amp;lt; 0) {
+
+        /* Log any failures here */
+
+        exit(EXIT_FAILURE);
+
+}
+
+
+/* Close out the standard file descriptors */
+
+close(STDIN_FILENO);
+
+close(STDOUT_FILENO);
+
+close(STDERR_FILENO);
+
+
+/* Daemon-specific initialization goes here */
+
+
+/* The Big Loop */
+
+while (1) {
+
+   /* Do some task here ... */
+
+   sleep(30); /* wait 30 seconds */
+
+}
+</code></pre><p><br>This typical loop is usually a <em>while</em> loop that has an infinite terminating condition, with a call to <em>sleep</em> in there to make it run at specified intervals.</p>
+</blockquote>
+<p>Think of it like a heartbeat: when your heart beats, it performs a few tasks, then waits until the next beat takes place. Many daemons follow this same methodology.</p>
+<h2 id="6-Putting-It-All-Together-1"><a href="#6-Putting-It-All-Together-1" class="headerlink" title="6. Putting It All Together"></a><a name="s6"></a>6. <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc6" target="_blank" rel="external">Putting It All Together</a></h2><h2 id="6-1-Complete-Sample"><a href="#6-1-Complete-Sample" class="headerlink" title="6.1 Complete Sample"></a><a name="ss6.1"></a>6.1 <a href="http://www.linuxprofilm.com/articles/linux-daemon-howto.html#toc6.1" target="_blank" rel="external">Complete Sample</a></h2><p>Listed below is a complete sample daemon that shows all of the steps necessary for setup and execution. To run this, simply compile using gcc, and start execution from the command line. To terminate, use the <em>kill</em> command after finding its PID.</p>
+<p>I’ve also put in the correct include statements for interfacing with the syslog, which is recommended at the very least for sending start/stop/pause/die log statements, in addition to using your own logs with the<em>fopen()</em>/<em>fwrite()</em>/<em>fclose()</em> function calls.</p>
+<blockquote>
+<p><pre>#include &lt;sys/types.h&gt;</pre></p>
+<p>#include &lt;sys/stat.h&gt;</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;stdlib.h&gt;</p>
+<p>#include &lt;fcntl.h&gt;</p>
+<p>#include &lt;errno.h&gt;</p>
+<p>#include &lt;unistd.h&gt;</p>
+<p>#include &lt;syslog.h&gt;</p>
+<p>#include &lt;string.h&gt;</p>
+<p>int main(void) {</p>
+<pre><code>/* Our process ID and Session ID */
+
+pid_t pid, sid;
+
+
+/* Fork off the parent process */
+
+pid = fork();
+
+if (pid &amp;lt; 0) {
+
+        exit(EXIT_FAILURE);
+
+}
+
+/* If we got a good PID, then
+
+   we can exit the parent process. */
+
+if (pid &amp;gt; 0) {
+
+        exit(EXIT_SUCCESS);
+
+}
+
+
+/* Change the file mode mask */
+
+umask(0);
+
+
+/* Open any logs here */        
+
+
+/* Create a new SID for the child process */
+
+sid = setsid();
+
+if (sid &amp;lt; 0) {
+
+        /* Log the failure */
+
+        exit(EXIT_FAILURE);
+
+}
+
+
+/* Change the current working directory */
+
+if ((chdir(&quot;/&quot;)) &amp;lt; 0) {
+
+        /* Log the failure */
+
+        exit(EXIT_FAILURE);
+
+}
+
+
+/* Close out the standard file descriptors */
+
+close(STDIN_FILENO);
+
+close(STDOUT_FILENO);
+
+close(STDERR_FILENO);
+
+
+/* Daemon-specific initialization goes here */
+
+
+/* The Big Loop */
+
+while (1) {
+
+   /* Do some task here ... */
+
+
+   sleep(30); /* wait 30 seconds */
+
+}
+</code></pre><p>   exit(EXIT_SUCCESS);</p>
+<p>}</p>
+<p><br>From here, you can use this <a href="http://slashnude.com/t/?elsa-pataky-nude-body-of-work-in-ninette-8703" target="_blank" rel="external">nude body</a> to write your own daemons. Be sure to add in your own logging (or use the syslog facility), and code defensively, code defensively, code defensively!</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.gsymy.com/2015/08/18/linux-daemon-writing-howto/" data-id="cimqgo2j00029mss68ea98hcw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deamon/">deamon</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/守护程序/">守护程序</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/08/18/a-cpp-manual/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          分享一个C/C++ 参考手册
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/08/18/paintdfd/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何绘制数据流图</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/devops/">devops</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/devops/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/devops/linux开发/">linux开发</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/exp/">exp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux开发/">linux开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux开发/python/">python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux开发/python/scrapy/">scrapy</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux开发/建站/">建站</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux开发/程序设计/">程序设计</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/qt/">qt</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/qt/windows开发/">windows开发</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scrapy/">scrapy</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows开发/">windows开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/windows开发/程序设计/">程序设计</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/建站/">建站</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/程序设计/">程序设计</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/程序人生/">程序人生</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序人生/">程序人生</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序设计/">程序设计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/程序设计/算法/">算法</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2015中国11大光棍职业/">2015中国11大光棍职业</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-手册/">C++手册</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C包含C-头文件/">C包含C++头文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFD/">DFD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JNI/">JNI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JNI崩溃/">JNI崩溃</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP编码/">PHP编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programmer’s-Day/">Programmer’s Day</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/astyle/">astyle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmdline/">cmdline</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code-format/">code format</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deamon/">deamon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devops/">devops</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dota/">dota</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dota2/">dota2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gengetopt/">gengetopt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/getopt/">getopt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/getopt-long/">getopt_long</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git思维导图/">git思维导图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git教程/">git教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/install-scrapy/">install scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json-c/">json-c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mbstring/">mbstring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qmake/">qmake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qt/">qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qt3/">qt3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qt4/">qt4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scrapy/">scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen/">screen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/subversion/">subversion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/">svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tcpdump/">tcpdump</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ultraEdit/">ultraEdit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/u盘挂载/">u盘挂载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/u盘权限/">u盘权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vistualstudio/">vistualstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/visualstudio/">visualstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vs/">vs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vs2010/">vs2010</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vs，快捷键/">vs，快捷键</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/warning/">warning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows-开发/">windows 开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/光棍职业/">光棍职业</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/友链/">友链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/女朋友/">女朋友</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/妹子图/">妹子图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/守护程序/">守护程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全漏洞/">安全漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象/">对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/崩溃/">崩溃</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工程/">工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/建站/">建站</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/悲伤的故事/">悲伤的故事</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据流图/">数据流图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/更新svn/">更新svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/烧烤/">烧烤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爱情/">爱情</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本控制/">版本控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序人生/">程序人生</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序员/">程序员</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序员转型/">程序员转型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序员转行/">程序员转行</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码错误/">编码错误</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译错误/">编译错误</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业/">职业</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/错误码/">错误码</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/2015中国11大光棍职业/" style="font-size: 10px;">2015中国11大光棍职业</a> <a href="/tags/C-手册/" style="font-size: 10px;">C++手册</a> <a href="/tags/C包含C-头文件/" style="font-size: 10px;">C包含C++头文件</a> <a href="/tags/DFD/" style="font-size: 10px;">DFD</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/JNI/" style="font-size: 10px;">JNI</a> <a href="/tags/JNI崩溃/" style="font-size: 10px;">JNI崩溃</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP编码/" style="font-size: 10px;">PHP编码</a> <a href="/tags/Programmer’s-Day/" style="font-size: 10px;">Programmer’s Day</a> <a href="/tags/astyle/" style="font-size: 10px;">astyle</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cmdline/" style="font-size: 10px;">cmdline</a> <a href="/tags/code-format/" style="font-size: 10px;">code format</a> <a href="/tags/deamon/" style="font-size: 10px;">deamon</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/dota/" style="font-size: 10px;">dota</a> <a href="/tags/dota2/" style="font-size: 10px;">dota2</a> <a href="/tags/gengetopt/" style="font-size: 10px;">gengetopt</a> <a href="/tags/getopt/" style="font-size: 10px;">getopt</a> <a href="/tags/getopt-long/" style="font-size: 10px;">getopt_long</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git思维导图/" style="font-size: 10px;">git思维导图</a> <a href="/tags/git教程/" style="font-size: 10px;">git教程</a> <a href="/tags/install-scrapy/" style="font-size: 10px;">install scrapy</a> <a href="/tags/json-c/" style="font-size: 10px;">json-c</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/mbstring/" style="font-size: 10px;">mbstring</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/qmake/" style="font-size: 10px;">qmake</a> <a href="/tags/qt/" style="font-size: 12px;">qt</a> <a href="/tags/qt3/" style="font-size: 10px;">qt3</a> <a href="/tags/qt4/" style="font-size: 10px;">qt4</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/subversion/" style="font-size: 10px;">subversion</a> <a href="/tags/svn/" style="font-size: 10px;">svn</a> <a href="/tags/tcpdump/" style="font-size: 10px;">tcpdump</a> <a href="/tags/ultraEdit/" style="font-size: 10px;">ultraEdit</a> <a href="/tags/u盘挂载/" style="font-size: 10px;">u盘挂载</a> <a href="/tags/u盘权限/" style="font-size: 10px;">u盘权限</a> <a href="/tags/vistualstudio/" style="font-size: 10px;">vistualstudio</a> <a href="/tags/visualstudio/" style="font-size: 18px;">visualstudio</a> <a href="/tags/vs/" style="font-size: 10px;">vs</a> <a href="/tags/vs2010/" style="font-size: 14px;">vs2010</a> <a href="/tags/vs，快捷键/" style="font-size: 10px;">vs，快捷键</a> <a href="/tags/warning/" style="font-size: 10px;">warning</a> <a href="/tags/windows/" style="font-size: 12px;">windows</a> <a href="/tags/windows-开发/" style="font-size: 12px;">windows 开发</a> <a href="/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/tags/光棍职业/" style="font-size: 10px;">光棍职业</a> <a href="/tags/友链/" style="font-size: 10px;">友链</a> <a href="/tags/女朋友/" style="font-size: 10px;">女朋友</a> <a href="/tags/妹子图/" style="font-size: 10px;">妹子图</a> <a href="/tags/守护程序/" style="font-size: 10px;">守护程序</a> <a href="/tags/安全漏洞/" style="font-size: 10px;">安全漏洞</a> <a href="/tags/对象/" style="font-size: 10px;">对象</a> <a href="/tags/崩溃/" style="font-size: 10px;">崩溃</a> <a href="/tags/工程/" style="font-size: 10px;">工程</a> <a href="/tags/建站/" style="font-size: 10px;">建站</a> <a href="/tags/悲伤的故事/" style="font-size: 10px;">悲伤的故事</a> <a href="/tags/数据流图/" style="font-size: 10px;">数据流图</a> <a href="/tags/更新svn/" style="font-size: 10px;">更新svn</a> <a href="/tags/烧烤/" style="font-size: 10px;">烧烤</a> <a href="/tags/爱情/" style="font-size: 10px;">爱情</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员/" style="font-size: 14px;">程序员</a> <a href="/tags/程序员转型/" style="font-size: 10px;">程序员转型</a> <a href="/tags/程序员转行/" style="font-size: 10px;">程序员转行</a> <a href="/tags/编码错误/" style="font-size: 10px;">编码错误</a> <a href="/tags/编译错误/" style="font-size: 10px;">编译错误</a> <a href="/tags/职业/" style="font-size: 10px;">职业</a> <a href="/tags/错误码/" style="font-size: 10px;">错误码</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/04/07/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/31/e6-ad-bb-e9-ab-98-e4-b8-80/">死高一…</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/11/centos-install-gitolite/">centos安装gitolite</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/10/using-https-in-nginx/">使用nginx搭建https服务器</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/30/redis-delkey/">Redis 删除所有键值</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

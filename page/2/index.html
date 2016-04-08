@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://blog.gsymy.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.gsymy.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-jni-getfieldidcrash" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/15/jni-getfieldidcrash/" class="article-date">
+  <time datetime="2015-11-15T06:46:37.000Z" itemprop="datePublished">2015-11-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/15/jni-getfieldidcrash/">jni GetFieldID崩溃的一个可能原因</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><span style="color: black; font-size: 10pt;">错误信息如下：<span style="font-family: 宋体;"><br></span></span></p>
+<p><span style="color: black; font-size: 10pt;"># Problematic frame:<br></span></p>
+<p><span style="color: black; font-size: 10pt;"># V [libjvm.so+0x5338c6] jni_GetFieldID+0xf6<br></span></p>
+<p><span style="color: black; font-size: 10pt;">java版本JDK 1.7.0 X64<br></span></p>
+<p><span style="color: black; font-size: 10pt;">分析GetFieldID第一个参数是通过FindClass来获得的，如果获取失败这里就崩溃了。<br></span></p>
+<p><span style="color: black; font-size: 10pt;">检查你FindClass里的参数是否正确；包路径是否正确；<br></span></p>
+<p><span style="color: black; font-size: 10pt;">注意：在低版本的java里FindClass包路径写”com.XXX.XXX.XXX”是可以的，<br></span></p>
+<p><span style="color: black; font-size: 10pt;">而java1.7里要求写”com/XXX/XXX/XXX”的路径方式<br></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.gsymy.com/2015/11/15/jni-getfieldidcrash/" data-id="cimqgo2iw0021mss6246wy9px" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JNI/">JNI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JNI崩溃/">JNI崩溃</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/崩溃/">崩溃</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-php-codec-error" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/15/php-codec-error/" class="article-date">
+  <time datetime="2015-11-15T06:46:03.000Z" itemprop="datePublished">2015-11-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/devops/">devops</a>►<a class="article-category-link" href="/categories/devops/PHP/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/15/php-codec-error/">PHP字符集错误</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>安装最新版本的phpymyadmin无法打开网站，查看日志显示如下：</p>
+<p><pre class="lang:default decode:true ">PHP message: PHP Fatal error:  Call to undefined function mb_detect_encoding()</pre><br>原因排查，没有安装php的mbstring扩展</p>
+<p>解决办法:</p>
+<p>linux.</p>
+<p><pre class="lang:default decode:true">sudo yum install -y php-mbstring<br></pre><br>&nbsp;</p>
+<p><pre class="lang:default decode:true ">用locate查找一下你的mbstring.so路径</pre></p>
+<p>加入扩展</p>
+<p>sudo vim /etc/php.ini</p>
+<p>加入一行</p>
+<p>extension=mbstring.so路径</p>
+<p>重启php前端(php-fpm等)</p>
+<p>php-fpm</p>
+<p>sudo service php-fpm restart<br>windows.</p>
+<p>同理</p>
+<p>下载mbstring.dll</p>
+<p>session</p>
+<p><img src="http://i3.tietuku.com/03c934852d26233a.png" alt=""></p>
+<p><a href="http://www.phperz.com/article/14/1222/42451.html" target="_blank" rel="external">http://www.phperz.com/article/14/1222/42451.html</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.gsymy.com/2015/11/15/php-codec-error/" data-id="cimqgo2ji003fmss6iy9yzcrl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP编码/">PHP编码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devops/">devops</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mbstring/">mbstring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码错误/">编码错误</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-google-mirror" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/06/google-mirror/" class="article-date">
+  <time datetime="2015-11-06T03:11:33.000Z" itemprop="datePublished">2015-11-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/06/google-mirror/">Google 镜像站搜集</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><span style="color: black; font-size: 16pt;">Google 镜像站搜集<br></span></p>
+<p><span style="color: #333333; font-size: 10pt;">在特殊的地方和特殊的时间，流畅顺利的打开一个网站也变得如此艰难。<br></span></p>
+<p><span style="color: #333333; font-size: 10pt;"><span style="color: red;">列表中有些打不开可能是 <a href="http://www.itechzero.com/tag/dns-poisoning/" target="_blank" rel="external">DNS污染</a> 的原因，可以参考 <a href="http://www.itechzero.com/dns-hijacking-dns-pollution-introduction-and-public-dns-recommend.html" target="_blank" rel="external">DNS劫持 DNS污染 介绍 与 公共DNS 推荐</a> 一文尝试解决。<span style="color: #333333;">不要没有尝试就问，谢谢！<span style="color: black;"><br></span></span></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">以下镜像站分<strong>原版</strong>、<strong>非原版</strong>。非原版的界面有些改变，搜索结果<span style="color: red;">在一定程度上可能<span style="color: #333333;">与原版相同。<span style="color: black;"><br></span></span></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;"><strong>如果您是以下镜像的作者，并且不希望您的镜像出现在以下列表中，可以<a href="http://www.itechzero.com/about/" target="_blank" rel="external">联系我</a>移除链接。</strong><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333;"><strong>原版网页：<span style="font-size: 10pt;">[最后检测：2015-11-4]</span></strong><br></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="http://www.itechzero.com/go/googo-cf" target="_blank" rel="external">http://googo.cf/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="http://www.itechzero.com/go/g-weme-so/" target="_blank" rel="external">https://g.weme.so/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="http://www.itechzero.com/go/www-gog-pw/" target="_blank" rel="external">http://www.gog.pw/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="http://www.itechzero.com/go/g-eeload-com/" target="_blank" rel="external">https://g.eeload.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="http://www.itechzero.com/go/www-guge119-com/" target="_blank" rel="external">https://www.guge119.com/</a><span style="color: black;"><br></span></span></p>
+<p><a href="http://www.itechzero.com/go/g-yon-hk/" target="_blank" rel="external"><span style="font-size: 10pt;">http://g.yon.hk/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/gg-wen-lu/" target="_blank" rel="external"><span style="font-size: 10pt;">https://gg.wen.lu/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/hisbig-com/" target="_blank" rel="external"><span style="font-size: 10pt;">http://hisbig.com/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/gg-kfd-me/" target="_blank" rel="external"><span style="font-size: 10pt;">https://gg.kfd.me/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/gs-awei-me/" target="_blank" rel="external"><span style="font-size: 10pt;">https://gs.awei.me/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/gg-cytbj-com/" target="_blank" rel="external"><span style="font-size: 10pt;">http://gg.cytbj.com/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/www-ppx-pw/" target="_blank" rel="external"><span style="font-size: 10pt;">https://www.ppx.pw/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/www-guge-link/" target="_blank" rel="external"><span style="font-size: 10pt;">http://www.guge.link/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/www-fcczp-com/" target="_blank" rel="external"><span style="font-size: 10pt;">http://www.fcczp.com/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/www-ggooo-net/" target="_blank" rel="external"><span style="font-size: 10pt;">http://www.ggooo.net/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/www-guge-click/" target="_blank" rel="external"><span style="font-size: 10pt;">https://www.guge.click/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/www-guge-date/" target="_blank" rel="external"><span style="font-size: 10pt;">https://www.guge.date/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/g-searcher-top/" target="_blank" rel="external"><span style="font-size: 10pt;">https://gg.searcher.top/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/gg-cellmean-com/" target="_blank" rel="external"><span style="font-size: 10pt;">http://gg.cellmean.com/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/google-kainidi-cn/" target="_blank" rel="external"><span style="font-size: 10pt;">http://google.kainidi.cn/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/google-xface-me/" target="_blank" rel="external"><span style="font-size: 10pt;">https://google.xface.me/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/go-hibenben-com/" target="_blank" rel="external"><span style="font-size: 10pt;">http://go.hibenben.com/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/google-hk-wewell-net/" target="_blank" rel="external"><span style="font-size: 10pt;">https://google-hk.wewell.net/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.itechzero.com/go/google-sidney-aldebaran-me/" target="_blank" rel="external"><span style="font-size: 10pt;">http://google.sidney-aldebaran.me/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><span style="color: #333333;"><strong>非原版网页：<span style="font-size: 10pt;">[最后检测：2015-10-31]</span></strong><br></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<span style="color: #333333;">微搜：<a href="http://www.wesou.org/" target="_blank" rel="external">http://www.wesou.org/</a><span style="color: black;"><br></span></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<span style="color: #333333;">谷歌363：<a href="http://www.g363.com/" target="_blank" rel="external">http://www.g363.com/</a><span style="color: black;"><br></span></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<span style="color: #333333;">Whats搜索：<a href="http://whatsoo.com/" target="_blank" rel="external">http://whatsoo.com/</a><span style="color: black;"><br></span></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<span style="color: #333333;">图灵搜索：<a href="https://www.tulingss.com/" target="_blank" rel="external">https://www.tulingss.com/</a><span style="color: black;"><br></span></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<span style="color: #333333;">九尾搜索：<a href="http://jiuweisoso.wallpai.com/" target="_blank" rel="external">http://jiuweisoso.wallpai.com/</a><span style="color: black;"><br></span></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">谷粉网：<a href="http://www.gool.wang/" target="_blank" rel="external">http://www.gool.wang/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">谷歌婊：<a href="http://www.gugebiao.com/" target="_blank" rel="external">http://www.gugebiao.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">丸子163：<a href="http://www.wanzi163.com/" target="_blank" rel="external">http://www.wanzi163.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">谷粉163：<a href="http://www.gufen163.com/" target="_blank" rel="external">http://www.gufen163.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">丸子138：<a href="http://www.itechzero.com/go/wanzi138/" target="_blank" rel="external">http://www.wanzi138.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">谷粉138：<a href="http://www.itechzero.com/go/gufen138/" target="_blank" rel="external">http://www.gufen138.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">谷歌搜索：<a href="http://guge.pro/" target="_blank" rel="external">http://guge.pro/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">快搜香港：<a href="http://hk.kuaiso.com/" target="_blank" rel="external">http://hk.kuaiso.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">网搜天下：<a href="http://www.258369.cn/" target="_blank" rel="external">http://www.258369.cn/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">谷粉搜搜：<a href="http://www.googfen.com/" target="_blank" rel="external">http://www.googfen.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">谷粉搜搜：<a href="http://gfsoso.hao136.com/" target="_blank" rel="external">http://gfsoso.hao136.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">红杏谷歌：<a href="http://www.hxgoogle.com/" target="_blank" rel="external">http://www.hxgoogle.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">布谷鸟搜索：<a href="http://m.wcuckoo.com/search/" target="_blank" rel="external">http://m.wcuckoo.com/search/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">Ask：<a href="http://home.tb.ask.com/" target="_blank" rel="external">http://home.tb.ask.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">AOL：<a href="http://m.search.aol.com/" target="_blank" rel="external">http://m.search.aol.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">Avira：<a href="https://safesearch.avira.com/" target="_blank" rel="external">https://safesearch.avira.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">Suche：<a href="http://suche.web.de/" target="_blank" rel="external">http://suche.web.de/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">Disconnect：<a href="https://search.disconnect.me/" target="_blank" rel="external">https://search.disconnect.me/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333; font-size: 10pt;">WebWebWeb：<a href="http://webwebweb.com/" target="_blank" rel="external">http://webwebweb.com/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: #333333;"><strong>谷歌学术：<span style="font-size: 10pt;">[最后检测：2015-11-4]</span></strong><br></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="http://scholar.ppx.pw/" target="_blank" rel="external">http://scholar.ppx.pw/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="http://googo.cf/scholar/" target="_blank" rel="external">http://googo.cf/scholar/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="http://gg.cytbj.com/scholar/" target="_blank" rel="external">http://gg.cytbj.com/scholar/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="http://www.fcczp.com/scholar/" target="_blank" rel="external">http://www.fcczp.com/scholar/</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="https://www.guge119.com/scholar/" target="_blank" rel="external">https://www.guge119.com/scholar/</a><span style="color: black;"><br></span></span></p>
+<p><a href="http://g.linkscholar.org/" target="_blank" rel="external"><span style="font-size: 10pt;">http://g.linkscholar.org/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="https://www.roolin.com/" target="_blank" rel="external"><span style="font-size: 10pt;">https://www.roolin.com/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://scholar.g363.com/" target="_blank" rel="external"><span style="font-size: 10pt;">http://scholar.g363.com/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.scholarnet.cn/" target="_blank" rel="external"><span style="font-size: 10pt;">http://www.scholarnet.cn/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://scholar.searcher.top/" target="_blank" rel="external"><span style="font-size: 10pt;">http://scholar.searcher.top/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://xueshu.cytbj.com/scholar/" target="_blank" rel="external"><span style="font-size: 10pt;">http://xueshu.cytbj.com/scholar/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://gfss.cc.wallpai.com/scholar/" target="_blank" rel="external"><span style="font-size: 10pt;">http://gfss.cc.wallpai.com/scholar/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="https://scholar.jiuminghu.com/scholar/" target="_blank" rel="external"><span style="font-size: 10pt;">https://scholar.jiuminghu.com/scholar/</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><span style="color: #333333;"><strong>谷歌图片：<span style="font-size: 10pt;">[最后检测：2015-11-4]</span></strong><br></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="http://googo.cf/imghp" target="_blank" rel="external">http://googo.cf/imghp</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="https://gtlds.me/imghp" target="_blank" rel="external">https://gtlds.me/imghp</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="https://g.eeload.com/imghp" target="_blank" rel="external">https://g.eeload.com/imghp</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="http://gg.cellmean.com/imghp" target="_blank" rel="external">http://gg.cellmean.com/imghp</a><span style="color: black;"><br></span></span></p>
+<p><span style="color: red; font-size: 10pt;">[推荐]<a href="https://www.guge119.com/imghp" target="_blank" rel="external">https://www.guge119.com/imghp</a><span style="color: black;"><br></span></span></p>
+<p><a href="http://hisbig.com/imghp" target="_blank" rel="external"><span style="font-size: 10pt;">http://hisbig.com/imghp</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="https://g.weme.so/imghp" target="_blank" rel="external"><span style="font-size: 10pt;">https://g.weme.so/imghp</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://gg.cytbj.com/imghp" target="_blank" rel="external"><span style="font-size: 10pt;">http://gg.cytbj.com/imghp</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="https://www.ppx.pw/imghp" target="_blank" rel="external"><span style="font-size: 10pt;">https://www.ppx.pw/imghp</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.guge.link/imghp" target="_blank" rel="external"><span style="font-size: 10pt;">http://www.guge.link/imghp</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.fcczp.com/imghp" target="_blank" rel="external"><span style="font-size: 10pt;">http://www.fcczp.com/imghp</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.ggooo.net/imghp" target="_blank" rel="external"><span style="font-size: 10pt;">http://www.ggooo.net/imghp</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="https://www.guge.click/imghp" target="_blank" rel="external"><span style="font-size: 10pt;">https://www.guge.click/imghp</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="https://google.xface.me/imghp" target="_blank" rel="external"><span style="font-size: 10pt;">https://google.xface.me/imghp</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="https://google-hk.wewell.net/imghp" target="_blank" rel="external"><span style="font-size: 10pt;">https://google-hk.wewell.net/imghp</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><span style="color: #595959; font-size: 8pt;">来自 &lt;<a href="http://www.itechzero.com/google-mirror-sites-collect.html" target="_blank" rel="external">http://www.itechzero.com/google-mirror-sites-collect.html</a>&gt;<br></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.gsymy.com/2015/11/06/google-mirror/" data-id="cimqgo2is001tmss6jtcm7exa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-programmer-job-2015" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/29/programmer-job-2015/" class="article-date">
+  <time datetime="2015-10-29T13:47:58.000Z" itemprop="datePublished">2015-10-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>►<a class="article-category-link" href="/categories/杂谈/程序人生/">程序人生</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/29/programmer-job-2015/">网友评选的“2015中国11大光棍职业”，程序员光荣上榜</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://a.33iq.com/upload/14/10/20/images/14137866152756.jpg" alt="">有道是“女怕嫁错郎，男怕入错行”。走入社会之后不同职业会产生不同的人生路线。这里从网上摘来”2015年中国11大光棍职业”。你的职业登榜了吗？即将走入社会的大学生，看了这个榜单你有没有考虑换个职业呢？</p>
+<p>&nbsp;</p>
+<p>网友评选的“2015年中国11大光棍职业”排行榜：</p>
+<ol>
+<li>公务员</li>
+<li>快递员</li>
+<li>空姐、空少</li>
+<li>作家、诗人</li>
+<li>歌手、演员、模特、主持人</li>
+<li><span style="color: #ff0000;"><strong>程序员</strong></span></li>
+<li>农民工</li>
+<li>厨师</li>
+<li>记者、编辑</li>
+<li>画家、书法家</li>
+<li>医生、护士<br>&nbsp;</li>
+</ol>
+<p><img src="http://a.33iq.com/upload/14/10/20/images/14137866152756.jpg" alt=""></p>
+<p>新闻来源:搜狐网</p>
+<p><a href="http://news.sohu.com/20151028/n424488061.shtml" target="_blank" rel="external">http://news.sohu.com/20151028/n424488061.shtml</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.gsymy.com/2015/10/29/programmer-job-2015/" data-id="cimqgo2jq003xmss612c17cgs" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/2015中国11大光棍职业/">2015中国11大光棍职业</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/光棍职业/">光棍职业</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/程序员/">程序员</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/职业/">职业</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-qmake-vsproject" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/27/qmake-vsproject/" class="article-date">
+  <time datetime="2015-10-27T10:33:30.000Z" itemprop="datePublished">2015-10-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/qt/">qt</a>►<a class="article-category-link" href="/categories/qt/windows开发/">windows开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/27/qmake-vsproject/">qmake不能生成vs工程文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><span style="color: black; font-size: 10pt;">报错信息如下：<br></span></p>
+<p><span style="color: black; font-size: 10pt;">WARNING: Unable to generate output for: Makefile.Debug [TEMPLATE vcapp]<br></span></p>
+<p><span style="color: black; font-size: 10pt;">正常情况下命令式:<br></span></p>
+<p><pre class="EnlighterJSRAW" data-enlighter-language="shell">qmake -tp vc xxx.pro</pre><br><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><span style="color: black; font-size: 10pt;"><strong>解决办法</strong><span style="font-family: 宋体;"><br></span></span></p>
+<p><span style="color: black; font-size: 10pt;">有些环境下装了多个Qt或者是环境变量有问题导致qmake没有找到正确的spec<br></span></p>
+<p><span style="color: black; font-size: 10pt;">修改命令为:<br></span></p>
+<p><pre class="lang:sh decode:true ">qmake -tp vc -spec win32-msvc2010 xxx.pro</pre><br>&nbsp;</p>
+<p><span style="color: black; font-size: 10pt;">这里spec选择你需要的版本即可<br></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.gsymy.com/2015/10/27/qmake-vsproject/" data-id="cimqgo2jr0040mss6x6wtu2q5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/qmake/">qmake</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/qt/">qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vs2010/">vs2010</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工程/">工程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-not-found-or-not-built-by-the-last-incremental-link-vs2010warning" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/25/not-found-or-not-built-by-the-last-incremental-link-vs2010warning/" class="article-date">
+  <time datetime="2015-10-25T11:54:56.000Z" itemprop="datePublished">2015-10-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/windows开发/">windows开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/25/not-found-or-not-built-by-the-last-incremental-link-vs2010warning/">not found or not built by the last incremental link VS2010编译警告</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><span style="color: black; font-size: 10pt;">not found or not built by the last incremental link; performing full link<br></span></p>
+<p><span style="color: gray; font-size: 9pt;">2015年10月25日<br></span></p>
+<p><span style="color: gray; font-size: 9pt;">19:53<br></span></p>
+<p><span style="color: #6e645b;"><span style="background-color: #ccced0;">VS的一个编译警告，不算错误。原因和解决办法如下：</span><span style="font-size: 12pt;"><br></span></span></p>
+<p><span style="color: #6e645b;"><span style="background-color: #ccced0;">用visualstudio创建一个Win32 Console Application，编译后生成两个Debug目录，一个在项目所属的Solution下，这个Debug中会生成.exe等类型程序结果文件。另外 的一个在Project的目录中，这个Debug中包含pdb等文件，但是没有生成.exe等程序结果文件。</span><br></span></p>
+<p><span style="color: #6e645b;"><span style="background-color: #ccced0;">Condition：</span><br></span></p>
+<p><span style="color: #6e645b;"><span style="background-color: #ccced0;">当再次重新编译项目时，出现如题的问题。</span><br></span></p>
+<p><span style="color: #6e645b;"><span style="background-color: #ccced0;">Cause:</span><br></span></p>
+<p><span style="color: #6e645b;"><span style="background-color: #ccced0;">引起这个错误的根源在于Microsoft的VS的两个配置项配置冲突造成的： 配置1：Configuration Properties-&gt;General-&gt;Output Directory默认配置是$(SolutionDir)$(ConfigurationName) 配置2：Configuration Properties-&gt;Linker-&gt;General-&gt;Output Directory默认配置是$(OutDir)/$(ProjectName).exe 上述的两项配置是冲突的。所以在你重新编译的时候这个错误就出现了</span><br></span></p>
+<p><span style="color: #6e645b;"><span style="background-color: #ccced0;">Solution:</span><br></span></p>
+<p><span style="color: #6e645b;"><span style="background-color: #ccced0;">在project的property配置窗口中：Configuration Properties-&gt;General：把Output Directory从$(SolutionDir)$(ConfigurationName)改 成$(ProjectDir)$(ConfigurationName)</span><br></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.gsymy.com/2015/10/25/not-found-or-not-built-by-the-last-incremental-link-vs2010warning/" data-id="cimqgo2jf0038mss6lpefor28" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/visualstudio/">visualstudio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vs2010/">vs2010</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/warning/">warning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-programer-gf" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/22/programer-gf/" class="article-date">
+  <time datetime="2015-10-22T13:49:31.000Z" itemprop="datePublished">2015-10-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/程序人生/">程序人生</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/22/programer-gf/">程序员如何找对象?</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><span style="color: black; font-size: 10pt;"><a href="http://blog.gsymy.com/wp-content/uploads/2015/10/731905338306293186.jpg"><img src="http://blog.gsymy.com/wp-content/uploads/2015/10/731905338306293186.jpg" alt="731905338306293186"></a><br></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.gsymy.com/2015/10/22/programer-gf/" data-id="cimqgo2jm003rmss6827redik" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/女朋友/">女朋友</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/对象/">对象</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/程序员/">程序员</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-female-programmer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/16/female-programmer/" class="article-date">
+  <time datetime="2015-10-16T02:34:00.000Z" itemprop="datePublished">2015-10-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/程序人生/">程序人生</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/16/female-programmer/">一张图--论女程序员为什么这么少</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://blog.gsymy.com/wp-content/uploads/2015/10/101615_0235_1.jpg" alt=""><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><span style="color: black; font-size: 10pt;">From: <a href="http://my.oschina.net/xxiaobian/blog/517846" target="_blank" rel="external">http://my.oschina.net/xxiaobian/blog/517846</a><br></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.gsymy.com/2015/10/16/female-programmer/" data-id="cimqgo2io001lmss6tudzxrkc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wildcard-match" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/15/wildcard-match/" class="article-date">
+  <time datetime="2015-10-15T03:52:16.000Z" itemprop="datePublished">2015-10-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/程序设计/">程序设计</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/15/wildcard-match/">C语言通配符匹配</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><span style="color: black; font-size: 10pt;">C语言通配符匹配<br></span></p>
+<p><span style="color: black; font-size: 10pt;">工作中经常会遇到通配符，windows控制台程序，linux shell，还有web服务器配置路径，Makefile中。<br></span></p>
+<p><span style="color: black; font-size: 10pt;">我来分享两个C语言通配符匹配程序和测试程序；我是抱着拿来主义的想法，年纪大了越越懒得动脑子了。<br></span></p>
+<p><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><span style="color: black; font-size: 10pt;">通配符程序中用到的是*和?<br></span></p>
+<p><span style="color: black; font-size: 10pt;">*表示任意多个任意字符<br></span></p>
+<p><span style="color: black; font-size: 10pt;">?表示单个任意字符<br></span></p>
+<p><span style="color: black; font-size: 10pt;">关于通配符的定义引用<a href="http://baike.baidu.com/link?url=Zm-Yxz0MNIZippSBAKlT6vPYOTjAjKo2NKBGDCODoVLcQ7KbJjHFThn9oEtoRItECCpcYiH99KMdPzlWNGVuK" target="_blank" rel="external">百度百科</a>的一段话<br></span></p>
+<p><span style="color: black; font-size: 10pt;">通配符是一种特殊语句，主要有星号(<em>)和问号(?)，用来模糊搜索文件。当查找文件夹时，可以使用它来代替一个或多个真正<a href="http://baike.baidu.com/view/263416.htm" target="_blank" rel="external"><span style="background-color: white;">字符</span></a>；当不知道真正字符或者懒得输入完整名字时，常常使用通配符代替一个或多个真正的字符。 实际上用”</em>Not?paOd”可以对应Notpad\MyNotpad【*可以代表任何文字】;Notpad\Notepad【?仅代表单个字】;Notepad\Notepod【ao代表a与o里二选一】，其余以此类推。<br></span></p>
+<p>第一个程序是商业友好的license，请放心使用！</p>
+<p><span style="color: #f29100; font-family: Segoe UI; font-size: 22pt;"><span style="background-color: white;">License</span><br></span></p>
+<p><span style="color: #111111; font-family: Segoe UI; font-size: 10pt;">This article has no explicit license attached to it but may contain usage terms in the article text or the download files themselves. If in doubt please contact the author via the discussion board below.<br></span></p>
+<p><span style="color: #111111; font-family: Segoe UI; font-size: 10pt;">A list of licenses authors might use can be found <a href="http://www.codeproject.com/info/Licenses.aspx" target="_blank" rel="external">here</a><span style="color: black;"><br></span></span></p>
+<p>第二个没有明确标明。</p>
+<p>&nbsp;</p>
+<p><span style="color: black; font-size: 10pt;">两个程序是类似的，第一个程序用的是循环，第二个程序用的是递归。<span style="font-family: 宋体;"><br></span></span></p>
+<p><pre class="EnlighterJSRAW" data-enlighter-language="null">static int wildcmp(const char<em> wild, const char</em> pattern)<br>{<br>  // Written by Jack Handy - &lt;A href=”mailto:jakkhandy@hotmail.com”&gt;jakkhandy@hotmail.com&lt;/A&gt;<br>  const char <em>cp = NULL, </em>mp = NULL;</pre></p>
+<p>  while ((<em>pattern) &amp;&amp; (</em>wild != ‘<em>‘))<br>  {<br>    if ((</em>wild != <em>pattern) &amp;&amp; (</em>wild != ‘?’))<br>    {<br>      return 0;<br>    }<br>    wild++;<br>    pattern++;<br>  }</p>
+<p>  while (<em>pattern)<br>  {<br>    if (</em>wild == ‘<em>‘)<br>    {<br>      if (!</em>++wild)<br>      {<br>        return 1;<br>      }<br>      mp = wild;<br>      cp = pattern + 1;<br>    }<br>    else if ((<em>wild == </em>pattern) || (*wild == ‘?’))<br>    {<br>      wild++;<br>      pattern++;<br>    }<br>    else<br>    {<br>      wild = mp;<br>      pattern = cp++;<br>    }<br>  }</p>
+<p>  while (<em>wild == ‘</em>‘)<br>  {<br>    wild++;<br>  }<br>  return !*wild;<br>}</p>
+<p>// The main function that checks if two given strings match. The first<br>// string may contain wildcard characters<br>static bool match(const char <em>first,  const char</em> second)<br>{<br>  // If we reach at the end of both strings, we are done<br>  if (<em>first == ‘\0’ &amp;&amp; </em>second == ‘\0’)<br>    return true;</p>
+<p>  // Make sure that the characters after ‘<em>‘ are present in second string.<br>  // This function assumes that the first string will not contain two<br>  // consecutive ‘</em>‘<br>  if (<em>first == ‘</em>‘ &amp;&amp; <em>(first + 1) != ‘\0’ &amp;&amp; </em>second == ‘\0’)<br>    return false;</p>
+<p>  // If the first string contains ‘?’, or current characters of both<br>  // strings match<br>  if (<em>first == ‘?’ || </em>first == *second)<br>    return match(first + 1, second + 1);</p>
+<p>  // If there is <em>, then there are two possibilities<br>  // a) We consider current character of second string<br>  // b) We ignore current character of second string.<br>  if (</em>first == ‘*’)<br>    return match(first + 1, second) || match(first, second + 1);<br>  return false;<br>}</p>
+<p>// A function to run test cases<br>static void test(const char<em> first, const char</em> second)<br>{<br>  match(first, second) ? puts(“Yes”) : puts(“No”);<br>}</p>
+<p>static void test2(const char<em> first, const char</em> second)<br>{<br>  wildcmp(first, second) ? puts(“Yes”) : puts(“No”);<br>}</p>
+<p>int _tmain(int argc, _TCHAR<em> argv[])<br>{<br>  test(“g</em>ks”, “geeks”); // Yes<br>  test(“ge?ks<em>“, “geeksforgeeks”); // Yes<br>  test(“g</em>k”, “gee”);  // No because ‘k’ is not in second<br>  test(“<em>pqrs”, “pqrst”); // No because ‘t’ is not in first<br>  test(“abc</em>bcd”, “abcdhghgbcd”); // Yes<br>  test(“abc<em>c?d”, “abcd”); // No because second must have 2 instances of ‘c’<br>  test(“</em>c<em>d”, “abcd”); // Yes<br>  test(“</em>?c*d”, “abcd”); // Yes</p>
+<p>  puts(“==================================\n”);</p>
+<p>  test2(“g<em>ks”, “geeks”); // Yes<br>  test2(“ge?ks</em>“, “geeksforgeeks”); // Yes<br>  test2(“g<em>k”, “gee”);  // No because ‘k’ is not in second<br>  test2(“</em>pqrs”, “pqrst”); // No because ‘t’ is not in first<br>  test2(“abc<em>bcd”, “abcdhghgbcd”); // Yes<br>  test2(“abc</em>c?d”, “abcd”); // No because second must have 2 instances of ‘c’<br>  test2(“<em>c</em>d”, “abcd”); // Yes<br>  test2(“<em>?c</em>d”, “abcd”); // Yes</p>
+<p>  return 0;<br>}<br><br>测试结果:</p>
+<!--StartFragment -->
+<p><div><img src="file:///C:\Users\chenqi-s\AppData\Roaming\Tencent\Users\332911480\QQ\WinTemp\RichOle\H{USPRL8631(K1V8N@}9BZX.jpg" alt=""></div><br><a href="http://blog.gsymy.com/wp-content/uploads/2015/10/test.jpg"><img src="http://blog.gsymy.com/wp-content/uploads/2015/10/test.jpg" alt="test"></a></p>
+<p>&nbsp;</p>
+<p><span style="color: black; font-size: 10pt;">参考链接：<span style="font-family: 宋体;"><br></span></span></p>
+<p><a href="http://www.codeproject.com/Articles/1088/Wildcard-string-compare-globbing" target="_blank" rel="external"><span style="font-size: 10pt;">http://www.codeproject.com/Articles/1088/Wildcard-string-compare-globbing</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+<p><a href="http://www.geeksforgeeks.org/wildcard-character-matching/" target="_blank" rel="external"><span style="font-size: 10pt;">http://www.geeksforgeeks.org/wildcard-character-matching/#</span></a><span style="color: black; font-size: 10pt;"><br></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.gsymy.com/2015/10/15/wildcard-match/" data-id="cimqgo2kb005smss6gfm1jjia" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-libtcmalloc-so-4-linkerror" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/13/libtcmalloc-so-4-linkerror/" class="article-date">
+  <time datetime="2015-10-13T12:58:38.000Z" itemprop="datePublished">2015-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux开发/">linux开发</a>►<a class="article-category-link" href="/categories/linux开发/建站/">建站</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/13/libtcmalloc-so-4-linkerror/">libtcmalloc.so.4 链接失败</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><span style="color: black; font-size: 10pt;">error while loading shared libraries: libtcmalloc.so.4: cannot open shared object file: No such file or directory<br></span></p>
+<p><span style="color: black; font-size: 10pt;">楼主在安装lnmp时，开启了tmalloc优化，结果在安装过程中报了如上错误；<br></span></p>
+<p><span style="color: black; font-size: 10pt;">解决办法：<br></span></p>
+<ol>
+<li><span style="color: black; font-size: 10pt;">用locate命令或者find命令查找确认该文件确实存在的路径；<br></span></li>
+<li><div><span style="color: black; font-size: 10pt;">将路径加载到ld的配置中，命令就一句(root权限)<br></span></div><br><pre class="EnlighterJSRAW " data-enlighter-language="null">echo /usr/local/lib &gt; /etc/ld.so.conf.d/libtcmalloc.conf</pre><br><span style="color: black; font-size: 10pt;"><span style="font-family: 宋体;"><br></span></span></li>
+</ol>
+<p><span style="color: black; font-size: 10pt;">楼主的文件位于/usr/local/lib<span style="font-family: 宋体;"><br></span></span><br><span style="color: #595959; font-size: 8pt;">来自 &lt;<a href="http://www.th7.cn/Program/cp/201310/154663.shtml" target="_blank" rel="external">http://www.th7.cn/Program/cp/201310/154663.shtml</a>&gt;<br></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.gsymy.com/2015/10/13/libtcmalloc-so-4-linkerror/" data-id="cimqgo2ix0023mss67wgxrt4x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/devops/">devops</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/devops/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/devops/linux开发/">linux开发</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/exp/">exp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux开发/">linux开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux开发/python/">python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux开发/python/scrapy/">scrapy</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux开发/建站/">建站</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux开发/程序设计/">程序设计</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/qt/">qt</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/qt/windows开发/">windows开发</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scrapy/">scrapy</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows开发/">windows开发</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/windows开发/程序设计/">程序设计</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/建站/">建站</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/程序设计/">程序设计</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/程序人生/">程序人生</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序人生/">程序人生</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序设计/">程序设计</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/程序设计/算法/">算法</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2015中国11大光棍职业/">2015中国11大光棍职业</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-手册/">C++手册</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C包含C-头文件/">C包含C++头文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFD/">DFD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JNI/">JNI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JNI崩溃/">JNI崩溃</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP编码/">PHP编码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programmer’s-Day/">Programmer’s Day</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/astyle/">astyle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmdline/">cmdline</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code-format/">code format</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/deamon/">deamon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devops/">devops</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dota/">dota</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dota2/">dota2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gengetopt/">gengetopt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/getopt/">getopt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/getopt-long/">getopt_long</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git思维导图/">git思维导图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git教程/">git教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/install-scrapy/">install scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json-c/">json-c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mbstring/">mbstring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qmake/">qmake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qt/">qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qt3/">qt3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/qt4/">qt4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scrapy/">scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen/">screen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/subversion/">subversion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/">svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tcpdump/">tcpdump</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ultraEdit/">ultraEdit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/u盘挂载/">u盘挂载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/u盘权限/">u盘权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vistualstudio/">vistualstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/visualstudio/">visualstudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vs/">vs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vs2010/">vs2010</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vs，快捷键/">vs，快捷键</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/warning/">warning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows-开发/">windows 开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/光棍职业/">光棍职业</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/友链/">友链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/女朋友/">女朋友</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/妹子图/">妹子图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/守护程序/">守护程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全漏洞/">安全漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象/">对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/崩溃/">崩溃</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工程/">工程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/建站/">建站</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/悲伤的故事/">悲伤的故事</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据流图/">数据流图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/更新svn/">更新svn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/烧烤/">烧烤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爱情/">爱情</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本控制/">版本控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序人生/">程序人生</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序员/">程序员</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序员转型/">程序员转型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序员转行/">程序员转行</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编码错误/">编码错误</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译错误/">编译错误</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职业/">职业</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/错误码/">错误码</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/2015中国11大光棍职业/" style="font-size: 10px;">2015中国11大光棍职业</a> <a href="/tags/C-手册/" style="font-size: 10px;">C++手册</a> <a href="/tags/C包含C-头文件/" style="font-size: 10px;">C包含C++头文件</a> <a href="/tags/DFD/" style="font-size: 10px;">DFD</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/JNI/" style="font-size: 10px;">JNI</a> <a href="/tags/JNI崩溃/" style="font-size: 10px;">JNI崩溃</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP编码/" style="font-size: 10px;">PHP编码</a> <a href="/tags/Programmer’s-Day/" style="font-size: 10px;">Programmer’s Day</a> <a href="/tags/astyle/" style="font-size: 10px;">astyle</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cmdline/" style="font-size: 10px;">cmdline</a> <a href="/tags/code-format/" style="font-size: 10px;">code format</a> <a href="/tags/deamon/" style="font-size: 10px;">deamon</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/dota/" style="font-size: 10px;">dota</a> <a href="/tags/dota2/" style="font-size: 10px;">dota2</a> <a href="/tags/gengetopt/" style="font-size: 10px;">gengetopt</a> <a href="/tags/getopt/" style="font-size: 10px;">getopt</a> <a href="/tags/getopt-long/" style="font-size: 10px;">getopt_long</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git思维导图/" style="font-size: 10px;">git思维导图</a> <a href="/tags/git教程/" style="font-size: 10px;">git教程</a> <a href="/tags/install-scrapy/" style="font-size: 10px;">install scrapy</a> <a href="/tags/json-c/" style="font-size: 10px;">json-c</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/mbstring/" style="font-size: 10px;">mbstring</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/qmake/" style="font-size: 10px;">qmake</a> <a href="/tags/qt/" style="font-size: 12px;">qt</a> <a href="/tags/qt3/" style="font-size: 10px;">qt3</a> <a href="/tags/qt4/" style="font-size: 10px;">qt4</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/subversion/" style="font-size: 10px;">subversion</a> <a href="/tags/svn/" style="font-size: 10px;">svn</a> <a href="/tags/tcpdump/" style="font-size: 10px;">tcpdump</a> <a href="/tags/ultraEdit/" style="font-size: 10px;">ultraEdit</a> <a href="/tags/u盘挂载/" style="font-size: 10px;">u盘挂载</a> <a href="/tags/u盘权限/" style="font-size: 10px;">u盘权限</a> <a href="/tags/vistualstudio/" style="font-size: 10px;">vistualstudio</a> <a href="/tags/visualstudio/" style="font-size: 18px;">visualstudio</a> <a href="/tags/vs/" style="font-size: 10px;">vs</a> <a href="/tags/vs2010/" style="font-size: 14px;">vs2010</a> <a href="/tags/vs，快捷键/" style="font-size: 10px;">vs，快捷键</a> <a href="/tags/warning/" style="font-size: 10px;">warning</a> <a href="/tags/windows/" style="font-size: 12px;">windows</a> <a href="/tags/windows-开发/" style="font-size: 12px;">windows 开发</a> <a href="/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/tags/光棍职业/" style="font-size: 10px;">光棍职业</a> <a href="/tags/友链/" style="font-size: 10px;">友链</a> <a href="/tags/女朋友/" style="font-size: 10px;">女朋友</a> <a href="/tags/妹子图/" style="font-size: 10px;">妹子图</a> <a href="/tags/守护程序/" style="font-size: 10px;">守护程序</a> <a href="/tags/安全漏洞/" style="font-size: 10px;">安全漏洞</a> <a href="/tags/对象/" style="font-size: 10px;">对象</a> <a href="/tags/崩溃/" style="font-size: 10px;">崩溃</a> <a href="/tags/工程/" style="font-size: 10px;">工程</a> <a href="/tags/建站/" style="font-size: 10px;">建站</a> <a href="/tags/悲伤的故事/" style="font-size: 10px;">悲伤的故事</a> <a href="/tags/数据流图/" style="font-size: 10px;">数据流图</a> <a href="/tags/更新svn/" style="font-size: 10px;">更新svn</a> <a href="/tags/烧烤/" style="font-size: 10px;">烧烤</a> <a href="/tags/爱情/" style="font-size: 10px;">爱情</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员/" style="font-size: 14px;">程序员</a> <a href="/tags/程序员转型/" style="font-size: 10px;">程序员转型</a> <a href="/tags/程序员转行/" style="font-size: 10px;">程序员转行</a> <a href="/tags/编码错误/" style="font-size: 10px;">编码错误</a> <a href="/tags/编译错误/" style="font-size: 10px;">编译错误</a> <a href="/tags/职业/" style="font-size: 10px;">职业</a> <a href="/tags/错误码/" style="font-size: 10px;">错误码</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/04/07/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/31/e6-ad-bb-e9-ab-98-e4-b8-80/">死高一…</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/11/centos-install-gitolite/">centos安装gitolite</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/10/using-https-in-nginx/">使用nginx搭建https服务器</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/30/redis-delkey/">Redis 删除所有键值</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
